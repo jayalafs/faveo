@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   faveo-app:
     container_name: faveo-app
@@ -16,7 +14,7 @@ services:
     volumes:
       - ${HOST_ROOT_DIR}:/var/www/html
     ports:
-      - "8282:80"  # Exponer puerto 80 interno en 8282 externo
+      - "8282:80"
     restart: always
 
   faveo-mariadb:
@@ -56,5 +54,4 @@ volumes:
 
 networks:
   faveo-network:
-    name: ${DOMAINNAME}-faveo
     driver: bridge
