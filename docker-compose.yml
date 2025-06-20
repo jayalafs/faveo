@@ -16,7 +16,7 @@ services:
     volumes:
       - ${HOST_ROOT_DIR}:/var/www/html
     ports:
-      - "8282:80"
+      - "8282:80"  # Exponer puerto 80 interno en 8282 externo
     restart: always
 
   faveo-mariadb:
@@ -27,7 +27,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${MYSQL_DATABASE}-faveoDB:/var/lib/mysql
+      - faveoDB:/var/lib/mysql
     restart: always
 
   faveo-redis:
@@ -52,8 +52,9 @@ services:
     restart: always
 
 volumes:
-  ${MYSQL_DATABASE}-faveoDB:
+  faveoDB:
 
 networks:
   faveo-network:
-    external: false
+    name: ${DOMAINNAME}-faveo
+    driver: bridge
