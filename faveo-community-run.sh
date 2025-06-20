@@ -94,7 +94,7 @@ echo "REDIS_HOST=faveo-Redis" >> .env
 # Crear volumen y red
 docker volume create --name ${domainname}-faveoDB
 docker network rm ${domainname}-faveo 2>/dev/null
-docker network create ${domainname}-faveo --driver=bridge --subnet=172.24.2.0/16
+docker network create ${domainname}-faveo --driver=bridge --subnet=172.24.2.0/24
 
 # Levantar contenedores
 docker compose up -d
