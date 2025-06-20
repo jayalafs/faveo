@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  faveo-app:
+    container_name: faveo-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - faveo-mariadb
+      - faveo-redis
+    networks:
+      - faveo-network
+    env_file:
+      - .env
+    volumes:
+      - ${HOST_ROOT_DIR}:/var/www/html
+    ports:
+      - "8282:80"
+    restart: always
+
+  faveo-mariadb:
+    image: mariadb:10.5
+    container_name: faveo-mariadb
+    networks:
+      - faveo-network
+    env_file:
+      - .env
+    volumes:
+      - ${MYSQL_DATABASE}-faveoDB:/var/lib/mysql
+    restart: always
+
+  faveo-redis:
+    image: redis:6.2
+    container_name: faveo-redis
+    networks:
+      - faveo-network
+    restart: always
+
+  faveo-cron:
+    container_name: faveo-cron
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - faveo-app
+    networks:
+      - faveo-network
+    volumes:
+      - ${HOST_ROOT_DIR}:/var/www/html
+    entrypoint: ["/usr/local/bin/cron.sh"]
+    restart: always
+
+volumes:
+  ${MYSQL_DATABASE}-faveoDB:
+
+networks:
+  faveo-network:
+    external: false
