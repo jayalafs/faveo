@@ -56,7 +56,7 @@ Uso:
 ./faveo-community-run.sh -domainname <your domainname> -email <example@email.com>
 ```
 Ejemplo: Debería verse así. ```sh
-./faveo-community-run.sh -domainname berserker.tk -email berserkertest@gmail.com
+./faveo-community-run.sh -domainname ticket.solvet-it.com.py -email jayala@solvet-it.com.py
 ```
 ---
 Tras completar la instalación de Docker, se le solicitarán las credenciales de la base de datos, que deberá copiar y guardar en un lugar seguro, y una tarea cron para renovar automáticamente los certificados SSL de Let's Encrypt.
